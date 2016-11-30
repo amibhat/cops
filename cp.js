@@ -6,7 +6,12 @@ var cc_mv = new (function ()
 
 	name: 'cc_mv',
 
+	possible: function(en_src) {
+	    return en_src.c_cnt >= 2;
+	}
+
 	do: function(en1, en2) {
+
 	    en1.c_cnt -= 2;
 	    en2.c_cnt += 2;
 	    
@@ -25,6 +30,10 @@ var cp_mv = new (function ()
     return {
 
 	name: 'cp_mv',
+
+	possible: function(en_src) {
+	    return (en_src.c_cnt >=1 && en_src.p_cnt >= 1);
+	}
 
 	do: function(en1, en2) {
 	    en1.c_cnt -= 1;
@@ -50,6 +59,10 @@ var pp_mv = new (function ()
 {
     return {
 	name: 'pp_mv',
+
+	possible: function(en_src) {
+	    return en_src.pp_cnt >= 2;
+	}
 
 	do: function(en1, en2) {
 	    en1.p_cnt -= 2;
@@ -104,7 +117,9 @@ var src = e1,
 
 while(true) {
     var tmp;
-    var next_move = Math.floor(Math.random() * 3);
+    var next_move;
+
+    next_move = Math.floor(Math.random() * 3);
   
     console.log(moves[next_move].name + " from " + src.which + " to " + dst.which);
 
@@ -116,6 +131,6 @@ while(true) {
 //    swap(src, dst);
     tmp = src;
     src = dst;
-    dst = src;
+    dst = tmp;
 }
     
