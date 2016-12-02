@@ -8,7 +8,7 @@ var cc_mv = new (function ()
 
 	possible: function(en_src) {
 	    return en_src.c_cnt >= 2;
-	}
+	},
 
 	do: function(en1, en2) {
 
@@ -33,7 +33,7 @@ var cp_mv = new (function ()
 
 	possible: function(en_src) {
 	    return (en_src.c_cnt >=1 && en_src.p_cnt >= 1);
-	}
+	},
 
 	do: function(en1, en2) {
 	    en1.c_cnt -= 1;
@@ -61,8 +61,8 @@ var pp_mv = new (function ()
 	name: 'pp_mv',
 
 	possible: function(en_src) {
-	    return en_src.pp_cnt >= 2;
-	}
+	    return en_src.p_cnt >= 2;
+	},
 
 	do: function(en1, en2) {
 	    en1.p_cnt -= 2;
@@ -78,6 +78,34 @@ var pp_mv = new (function ()
     }
 })();
 
+
+var c0_mv = new (function() {
+    return {
+	name: 'c0_mv',
+
+	possible: function(en_src) {
+	    return en_src.c_cnt >= 1;
+	},
+
+	do: function(en1, en2) {
+	    en1.c_cnt -= 1;
+	    en2.c_cnt += 1;
+
+	    return (en1.validate() && en2.validate());
+	}
+    }
+});
+
+/*
+function sleep(ms) {
+    return new Promise(function(resolve, reject){
+	setTimeout(function() {}, ms);
+
+	return resolve();
+    });
+}
+*/
+		 
 function swap(a, b)
 {
     console.log("swapping " + a.which + " " + b.which);
@@ -106,7 +134,6 @@ var End = function(ps, cs, e) {
     }
 };
 
-
 var e1 = new End(3, 3, 'E1');
 var e2 = new End(0, 0, 'E2');
 
@@ -123,8 +150,8 @@ while(true) {
   
     console.log(moves[next_move].name + " from " + src.which + " to " + dst.which);
 
-    if(!moves[next_move].do(src, dst)) {
-
+    if(moves[next_move].possible(src, dst)) {
+	moves[next_move].do(src, dst);
 	break;
     }
     
