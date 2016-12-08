@@ -117,7 +117,7 @@ function swap(a, b)
     console.log("swappeed " + a.which + " " + b);
 }
 
-var End = function(ps, cs, e) {
+/* var End = function(ps, cs, e) {
     return {
 	which: e,
 	p_cnt: ps,
@@ -132,15 +132,18 @@ var End = function(ps, cs, e) {
 	    );
 	}
     }
-};
+}; */
 
-var e1 = new End(3, 3, 'E1');
-var e2 = new End(0, 0, 'E2');
+var e1 = new EndModel(3, 3, 'E1');
+var e2 = new EndModel(0, 0, 'E2');
 
 var moves = [cc_mv, cp_mv, pp_mv];
 
 var src = e1,
     dst = e2;
+
+var e1View = new EndView({ el: $('#end1'), model: e1 });
+var e2View = new EndView({ el: $('#end2'), model: e2 });
 
 while(true) {
     var tmp;
