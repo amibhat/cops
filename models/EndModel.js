@@ -13,6 +13,7 @@ define(['backbone',
 	      initialize: function(ps, cs, e) {
 		  this.which = e;
 		  this.p_cnt = ps;
+		  debugger;
 		  this.c_cnt = cs;
 	      },
 

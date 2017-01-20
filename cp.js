@@ -117,38 +117,48 @@ define([
     });
 
     var e1 = new EndModel(3, 3, 'E1');
+    debugger;
     var e2 = new EndModel(0, 0, 'E2');
 
     var moves = [cc_mv, cp_mv, pp_mv, c0_mv, p0_mv];
 
-    var src = e1,
-	dst = e2;
+    var src = e1;
+    var	dst = e2;
 
     var e1View = new EndView({ el: $('#end1'), model: e1 });
     var e2View = new EndView({ el: $('#end2'), model: e2 });
 
     var num_moves = 0;
+    var num_move_attempts = 0;
     
     while(true) {
 	var tmp;
 	var next_move;
 
-	next_move = Math.floor(Math.random() * 3);
-	
-	console.log(moves[next_move].name + " from " + src.which + " to " + dst.which);
+	next_move = Math.floor(Math.random() * moves.length);
 
-	if(moves[next_move].possible(src, dst)) {
+	console.log("Attempting >> " + moves[next_move].name + " from " + src.which + " to " + dst.which);
+	num_move_attempts++;
+	
+	if(moves[next_move].possible(src)) {
+	    console.log(moves[next_move].name + " from " + src.which + " to " + dst.which);
 	    moves[next_move].do(src, dst);
+	    debugger;
 	    e1View.render();
 	    e2View.render();
 	    num_moves++;
+	    
 	    if (num_moves >= 5)
 		break;
+
+	    alert(num_moves);
+
+	    tmp = src;
+	    src = dst;
+	    dst = tmp;
 	}
-	
-	//    swap(src, dst);
-	tmp = src;
-	src = dst;
-	dst = tmp;
+
+	if (num_move_attempts >= 15)
+	    break;
     }
 });

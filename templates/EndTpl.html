@@ -1,7 +1,10 @@
 <div>
   <span><% this.model.name %></span>\
   <ul>
-    <% _.range(this.model.p_cnt).forEach(function(val, i) { %>
-    <li>P</li>
+    <% this.model.p_cnt > 0 && _.range(this.model.p_cnt).forEach(function(val, i) { %>
+         <li>P</li>
+    <% }); %>
+    <% this.model.c_cnt > 0 && _.range(this.model.c_cnt).forEach(function(val, i) { %>
+         <li>C</li>
     <% }); %>
 </div>
